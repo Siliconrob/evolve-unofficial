@@ -1,4 +1,4 @@
-# Hello and welcome to using Hapijs with MapBox+AirTable!
+# Hello and welcome to using Hapijs with MapBox + Evolve!
 
 [Live site](https://evolve-unofficial.glitch.me/)
 
