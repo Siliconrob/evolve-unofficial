@@ -521,10 +521,27 @@
       function loadPropertyAmenities(unit) {
         const amenities = document.getElementById("propertyDetailsAccordion2");
         amenities.innerHTML = "";
-        const amenityList = unit.amenities.map(z => {
-          return checkBoxListItem(z.name)
-        });        
-        amenities.innerHTML = `<ul role="list" class="space-y-4 text-gray-500 dark:text-gray-400">${amenityList.join("")}</ul>`;
+        
+        const groupedByCategory = new Map();
+
+        unit.amenities.forEach((z) => {
+            const category = z.category;
+            if (!groupedByCategory.has(category)) {
+                groupedByCategory.set(category, [z]);
+            } else {
+                groupedByCategory.get(category).push(z);
+            }
+        });
+        
+        let amenityGroups = [];        
+        for (const sortedKey of [...groupedByCategory.keys()].sort()) {
+          const sortedAmenities = [... new Set(groupedByCategory.get(sortedKey).map(z => z.name).sort(Intl.Collator().compare))]
+          const amenityList = sortedAmenities.map(z => {
+             return checkBoxListItem(z)
+          });
+          amenityGroups.push(`<h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">${sortedKey == "" ? "None" : sortedKey}</h2><ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">${amenityList.join("")}</ul>`)          
+        }
+        amenities.innerHTML = `${amenityGroups.join("")}`;
       }
       
       function addPrices(listingContents) {
