@@ -1,7 +1,8 @@
 # Hello and welcome to using Hapijs with MapBox + Evolve!
 
 
-[Live site](https://evolve-unofficial.glitch.me/)
+- [Live site](https://evolve-unofficial.glitch.me/)
+- [API](https://evolve-unofficial.glitch.me/documentation)
 
 ## Walkthrough
 
@@ -27,9 +28,7 @@ You'll get best use out of this project if you're familiar with basic JavaScript
 
 ← `README.md`: That’s this file, where you can tell people what your cool website does and how you built it.
 
-← `public/map.html`: Holds the display map rendering.
-
-← `public/style.css`: The styling rules for the pages in your site.
+← `public/index.html`: Holds the web application.
 
 ← `index.js`: The **Node.js** server script for your new site. The JavaScript defines the endpoints in the site back-end, one to return the homepage and one to update with the submitted color. Each one sends data to a Handlebars template which builds these parameter values into the web page the visitor sees.
 
