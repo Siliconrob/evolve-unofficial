@@ -48,8 +48,9 @@
       #map {
         width: 80dvw;
         height: 50dvh;
+        margin: 10dvw;
       }
-      
+
       /* Popup styling */
 
       .mapboxgl-popup {
@@ -99,8 +100,6 @@
       .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
         border-bottom-color: rgb(61, 59, 59);
       }
-      
-      
     </style>
   </head>
   <body>
@@ -128,8 +127,9 @@
           </svg>
         </div>
 
-        <input id="searchPropertyInput"
-          type="number"               
+        <input
+          id="searchPropertyInput"
+          type="number"
           maxlength="6"
           min="200000"
           max="999999"
@@ -142,11 +142,13 @@
         />
       </div>
       <div class="relative">
-        <button id="searchButton"
-          type="submit"          
+        <button
+          id="searchButton"
+          type="submit"
           class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          <svg id="searchButtonLoader"               
+          <svg
+            id="searchButtonLoader"
             aria-hidden="true"
             role="status"
             class="hidden inline w-4 h-4 me-3 text-white animate-spin"
@@ -165,249 +167,199 @@
           </svg>
           Search
         </button>
-        <div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-            Any of these will work<br/>
-            <ul>
-              <li>440000</li>
-              <li>460000</li>
-              <li>470000</li>
-              <li>490566</li>
-              <li>500499</li>
-            </ul>
-            <div class="tooltip-arrow" data-popper-arrow></div>
-        </div>        
+        <div
+          id="tooltip-default"
+          role="tooltip"
+          class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+        >
+          Any of these will work<br />
+          <ul>
+            <li>440000</li>
+            <li>460000</li>
+            <li>470000</li>
+            <li>490566</li>
+            <li>500499</li>
+          </ul>
+          <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
       </div>
     </div>
     <br />
-    <div
-      class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-    >
-      <div class="sm:hidden">
-        <label for="tabs" class="sr-only">Select tab</label>
-        <select
-          id="tabs"
-          class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
-          <option>Map</option>
-          <option>Details</option>
-          <option>Prices</option>
-          <option>Quote Test</option>
-        </select>
-      </div>
-      <ul
-        class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400 rtl:divide-x-reverse"
-        id="fullWidthTab"
-        data-tabs-toggle="#fullWidthTabContent"
-        role="tablist"
-      >
-        <li class="w-full">
-          <button
-            id="maps-tab"
-            data-tabs-target="#map-tab"
-            type="button"
-            role="tab"
-            aria-controls="map-tab"
-            aria-selected="true"
-            class="inline-block w-full p-4 rounded-ss-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600"
-          >
-            Map
-          </button>
-        </li>
-        <li class="w-full">
-          <button
-            id="detail-tab"
-            data-tabs-target="#detail"
-            type="button"
-            role="tab"
-            aria-controls="detail"
-            aria-selected="false"
-            class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600"
-          >
-            Details
-          </button>
-        </li>        
-        <li class="w-full">
-          <button
-            id="prices-tab"
-            data-tabs-target="#prices"
-            type="button"
-            role="tab"
-            aria-controls="prices"
-            aria-selected="false"
-            class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600"
-          >
-            Prices
-          </button>
-        </li>
-        <li class="w-full">
-          <button
-            id="quotetest-tab"
-            data-tabs-target="#quotetest"
-            type="button"
-            role="tab"
-            aria-controls="faq"
-            aria-selected="false"
-            class="inline-block w-full p-4 rounded-se-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600"
-          >
-            Quote Test
-          </button>
-        </li>
-      </ul>
-      <div
-        id="fullWidthTabContent"
-        class="border-t border-gray-200 dark:border-gray-600"
-      >
-        <div
-          class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
-          id="map-tab"
-          role="tabpanel"
-          aria-labelledby="map-tab"
-        >
-          <dl
-            class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-6 dark:text-white sm:p-8"
-          >
-            <div id="map"></div>
-          </dl>
+    <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center justify-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
+            <li class="me-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="Map-tab" data-tabs-target="#map" type="button" role="tab" aria-controls="Map" aria-selected="false">Map</button>
+            </li>
+            <li class="me-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="Details-tab" data-tabs-target="#details" type="button" role="tab" aria-controls="Details" aria-selected="false">Details</button>
+            </li>
+            <li class="me-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="Prices-tab" data-tabs-target="#prices" type="button" role="tab" aria-controls="Prices" aria-selected="false">Prices</button>
+            </li>
+            <li role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="Quote Test-tab" data-tabs-target="#quotetest" type="button" role="tab" aria-controls="Quote Test" aria-selected="false">Quote Test</button>
+            </li>
+        </ul>
+    </div>
+    <div id="default-tab-content">
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="map" role="tabpanel" aria-labelledby="Map-tab">
+            <div id="mapDiv"></div>
         </div>
-        <div
-          class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
-          id="detail"
-          role="tabpanel"
-          aria-labelledby="detail-tab"
-        >
-          <a target="_blank" id="detailImageLink">
-              <img id="detailTabImage" class="rounded-t-lg" src="#" alt="" />
-          </a>
-          <div class="p-5">
-            <a target="_blank" id="detailTabLink" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                <div class="flex flex-col justify-between p-4 leading-normal">
-                    <h5 id="detailTabHeader" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Property Header</h5>
-                    <p id="detailTabSummary" class="mb-3 font-normal text-gray-700 dark:text-gray-400">Property Details</p>
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="details" role="tabpanel" aria-labelledby="Details-tab">
+            <a target="_blank" id="detailImageLink">
+                <img id="detailTabImage" class="rounded-t-lg" src="#" alt="" />
+            </a>
+            <div class="p-5">
+                <a target="_blank" id="detailImageLink">
+                    <img id="detailTabImage" class="rounded-t-lg" src="#" alt="" />
+                </a>
+                <div class="p-5">
+                    <a
+                            target="_blank"
+                            id="detailTabLink"
+                            class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                    >
+                        <div class="flex flex-col justify-between p-4 leading-normal">
+                            <h5
+                                    id="detailTabHeader"
+                                    class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                            >
+                                Property Header
+                            </h5>
+                            <p
+                                    id="detailTabSummary"
+                                    class="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                            >
+                                Property Details
+                            </p>
+                        </div>
+                    </a>
                 </div>
-            </a>            
-          </div>
-          <div
-            id="accordion-flush"
-            data-accordion="collapse"
-            data-active-classes="bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            data-inactive-classes="text-gray-500 dark:text-gray-400"
-          >
-            <h2 id="accordion-flush-heading-1">
-              <button
-                type="button"
-                class="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                data-accordion-target="#accordion-flush-body-1"
-                aria-expanded="true"
-                aria-controls="accordion-flush-body-1"
-              >
-                <span>More details</span>
-                <svg
-                  data-accordion-icon
-                  class="w-3 h-3 rotate-180 shrink-0"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
+                <div
+                        id="accordion-flush"
+                        data-accordion="collapse"
+                        data-active-classes="bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                        data-inactive-classes="text-gray-500 dark:text-gray-400"
                 >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5 5 1 1 5"
-                  />
-                </svg>
-              </button>
-            </h2>
-            <div
-              id="accordion-flush-body-1"
-              class="hidden"
-              aria-labelledby="accordion-flush-heading-1"
-            >
-              <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                <p id="propertyDetailsAccordion1" class="mb-2 text-gray-500 dark:text-gray-400">
-                </p>
-              </div>
+                    <h2 id="accordion-flush-heading-1">
+                        <button
+                                type="button"
+                                class="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                                data-accordion-target="#accordion-flush-body-1"
+                                aria-expanded="true"
+                                aria-controls="accordion-flush-body-1"
+                        >
+                            <span>More details</span>
+                            <svg
+                                    data-accordion-icon
+                                    class="w-3 h-3 rotate-180 shrink-0"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 10 6"
+                            >
+                                <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 5 5 1 1 5"
+                                />
+                            </svg>
+                        </button>
+                    </h2>
+                    <div
+                            id="accordion-flush-body-1"
+                            class="hidden"
+                            aria-labelledby="accordion-flush-heading-1"
+                    >
+                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                            <p
+                                    id="propertyDetailsAccordion1"
+                                    class="mb-2 text-gray-500 dark:text-gray-400"
+                            ></p>
+                        </div>
+                    </div>
+                    <h2 id="accordion-flush-heading-2">
+                        <button
+                                type="button"
+                                class="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                                data-accordion-target="#accordion-flush-body-2"
+                                aria-expanded="false"
+                                aria-controls="accordion-flush-body-2"
+                        >
+                            <span>Amenities</span>
+                            <svg
+                                    data-accordion-icon
+                                    class="w-3 h-3 rotate-180 shrink-0"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 10 6"
+                            >
+                                <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 5 5 1 1 5"
+                                />
+                            </svg>
+                        </button>
+                    </h2>
+                    <div
+                            id="accordion-flush-body-2"
+                            class="hidden"
+                            aria-labelledby="accordion-flush-heading-2"
+                    >
+                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                            <p
+                                    id="propertyDetailsAccordion2"
+                                    class="mb-2 text-gray-500 dark:text-gray-400"
+                            ></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h2 id="accordion-flush-heading-2">
-              <button
-                type="button"
-                class="flex items-center justify-between w-full py-5 font-medium text-left rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                data-accordion-target="#accordion-flush-body-2"
-                aria-expanded="false"
-                aria-controls="accordion-flush-body-2"
-              >
-                <span>Amenities</span>
+        </div>
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="prices" role="tabpanel" aria-labelledby="Prices-tab">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="quotetest" role="tabpanel" aria-labelledby="Quote Test-tab">
+            <p
+                    id="quoteParameters"
+                    class="text-4xl font-semibold text-gray-900 dark:text-white"
+            >
+                Parameters
+            </p>
+            <br />
+            <button
+                    id="createQuoteButton"
+                    type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
                 <svg
-                  data-accordion-icon
-                  class="w-3 h-3 rotate-180 shrink-0"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
+                        id="quoteButtonLoader"
+                        aria-hidden="true"
+                        role="status"
+                        class="hidden inline w-4 h-4 me-3 text-white animate-spin"
+                        viewBox="0 0 100 101"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5 5 1 1 5"
-                  />
+                    <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="#E5E7EB"
+                    />
+                    <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentColor"
+                    />
                 </svg>
-              </button>
-            </h2>
-            <div
-              id="accordion-flush-body-2"
-              class="hidden"
-              aria-labelledby="accordion-flush-heading-2"
-            >
-              <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                <p id="propertyDetailsAccordion2" class="mb-2 text-gray-500 dark:text-gray-400">
-                </p>
-              </div>
-            </div>
-          </div>          
+                Quote
+            </button>
+            <div id="quoteDetails"></div>
         </div>
-        <div
-          class="hidden p-4 bg-white rounded-lg dark:bg-gray-800"
-          id="prices"
-          role="tabpanel"
-          aria-labelledby="prices-tab"
-        >
-          <canvas id="myChart"></canvas>
-        </div>
-        <div
-          class="hidden p-4 bg-white rounded-lg dark:bg-gray-800"
-          id="quotetest"
-          role="tabpanel"
-          aria-labelledby="quotetest-tab"
-        >    
-          <p id="quoteParameters" class="text-4xl font-semibold text-gray-900 dark:text-white">Parameters</p>
-          <br/>
-          <button id="createQuoteButton" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-          <svg id="quoteButtonLoader"               
-            aria-hidden="true"
-            role="status"
-            class="hidden inline w-4 h-4 me-3 text-white animate-spin"
-            viewBox="0 0 100 101"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-              fill="#E5E7EB"
-            />
-            <path
-              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-              fill="currentColor"
-            />
-          </svg>
-            Quote
-          </button>
-          <div id="quoteDetails">            
-          </div>
-        </div>
-      </div>
     </div>
     <script>
       let searchMarker = null;
@@ -415,22 +367,24 @@
       let priceChart = null;
 
       function getHeaderImage(listingContents) {
-        return listingContents?.ImageUrl || listingContents.images.pop().URL;        
+        return listingContents?.ImageUrl || listingContents.images.pop().URL;
       }
-      
+
       function getDirectLink(listingContents) {
-       return `https://evolve.com/${listingContents.externalId}`; 
+        return `https://evolve.com/${listingContents.externalId}`;
       }
-      
+
       function placeMarker(listingContents) {
-        
-        const position = [listingContents.geoloc.lng, listingContents.geoloc.lat];
+        const position = [
+          listingContents.geoloc.lng,
+          listingContents.geoloc.lat,
+        ];
         const text = listingContents.Headline;
         const photoUrl = getHeaderImage(listingContents);
         const directUrl = getDirectLink(listingContents);
         const popupDetail = `<img style="object-fit: contain; width: 100%; height: 100%;" alt="${text}" src="${photoUrl}" /><br/><h3><a target="_blank" href="${directUrl}">${text}</a></h3>`;
-        
-        console.log(listingContents);        
+
+        console.log(listingContents);
         if (searchMarker != null) {
           searchMarker.remove();
         }
@@ -441,7 +395,7 @@
           .addTo(map);
         map.flyTo({ center: position, zoom: 18 });
       }
-      
+
       function detailTableRow(key, value) {
         return `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -452,9 +406,8 @@
             </td>
           </tr>`;
       }
-      
+
       function checkBoxListItem(text) {
-        
         return `<li class="flex space-x-2 rtl:space-x-reverse items-center">
               <svg
                 class="flex-shrink-0 w-3.5 h-3.5 text-blue-600 dark:text-blue-500"
@@ -469,46 +422,54 @@
               </svg>
               <span class="leading-tight">${text}</span>
             </li>`;
-        
       }
-      
-      function addDetails(listingContents) {        
-        
+
+      function addDetails(listingContents) {
         const detailTitle = document.getElementById("detailTabHeader");
         const detailSummary = document.getElementById("detailTabSummary");
         const detailLink = document.getElementById("detailTabLink");
-        const detailImageLink = document.getElementById("detailImageLink");        
+        const detailImageLink = document.getElementById("detailImageLink");
         const imageLink = document.getElementById("detailTabImage");
-        
+
         detailTitle.innerText = listingContents.Headline;
         imageLink.src = getHeaderImage(listingContents);
-        
-        const propertyLink = getDirectLink(listingContents);        
+
+        const propertyLink = getDirectLink(listingContents);
         detailLink.href = propertyLink;
         detailImageLink.href = propertyLink;
-        
-        const summaries = listingContents.adContent.filter(z => z.type == "description").map(k => k.text);
+
+        const summaries = listingContents.adContent
+          .filter((z) => z.type == "description")
+          .map((k) => k.text);
         let summary = "";
         if (summaries.length > 0) {
           summary = summaries.pop();
         }
-        detailSummary.innerHTML = `<p>${summary}</p>`;        
-        loadPropertyRules(listingContents);        
-        loadPropertyAmenities(listingContents.units.shift())        
+        detailSummary.innerHTML = `<p>${summary}</p>`;
+        loadPropertyRules(listingContents);
+        loadPropertyAmenities(listingContents.units.shift());
       }
-      
+
       function loadPropertyRules(listingContents) {
-        const moreDetails = document.getElementById("propertyDetailsAccordion1");
+        const moreDetails = document.getElementById(
+          "propertyDetailsAccordion1"
+        );
         moreDetails.innerHTML = "";
-        
+
         const tableRows = [
           detailTableRow("Bedrooms", listingContents.Bedrooms || ""),
           detailTableRow("Bathrooms", listingContents.Bathrooms || ""),
           detailTableRow("City", listingContents.City || ""),
-          detailTableRow("Check-in Time", listingContents["Check-in Time"] || ""),
-          detailTableRow("Check-out Time", listingContents["Check-out Time"] || ""),
+          detailTableRow(
+            "Check-in Time",
+            listingContents["Check-in Time"] || ""
+          ),
+          detailTableRow(
+            "Check-out Time",
+            listingContents["Check-out Time"] || ""
+          ),
         ];
-        
+
         const table = `<div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -526,71 +487,89 @@
                 </tbody>
             </table>
         </div>`;
-        
+
         moreDetails.innerHTML = table;
       }
-      
+
       function loadPropertyAmenities(unit) {
         const amenities = document.getElementById("propertyDetailsAccordion2");
         amenities.innerHTML = "";
-        
+
         const groupedByCategory = new Map();
 
         unit.amenities.forEach((z) => {
-            const category = z.category;
-            if (!groupedByCategory.has(category)) {
-                groupedByCategory.set(category, [z]);
-            } else {
-                groupedByCategory.get(category).push(z);
-            }
+          const category = z.category;
+          if (!groupedByCategory.has(category)) {
+            groupedByCategory.set(category, [z]);
+          } else {
+            groupedByCategory.get(category).push(z);
+          }
         });
-        
-        let amenityGroups = [];        
+
+        let amenityGroups = [];
         for (const sortedKey of [...groupedByCategory.keys()].sort()) {
-          const sortedAmenities = [... new Set(groupedByCategory.get(sortedKey).map(z => z.name).sort(Intl.Collator().compare))]
-          const amenityList = sortedAmenities.map(z => {
-             return checkBoxListItem(z)
+          const sortedAmenities = [
+            ...new Set(
+              groupedByCategory
+                .get(sortedKey)
+                .map((z) => z.name)
+                .sort(Intl.Collator().compare)
+            ),
+          ];
+          const amenityList = sortedAmenities.map((z) => {
+            return checkBoxListItem(z);
           });
-          amenityGroups.push(`<h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">${sortedKey == "" ? "None" : sortedKey}</h2><ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">${amenityList.join("")}</ul>`)          
+          amenityGroups.push(
+            `<h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">${
+              sortedKey == "" ? "None" : sortedKey
+            }</h2><ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">${amenityList.join(
+              ""
+            )}</ul>`
+          );
         }
         amenities.innerHTML = `${amenityGroups.join("")}`;
       }
-      
+
       function addPrices(listingContents) {
-        
-        const ctx = document.getElementById('myChart');                
-        const dataPoints = Object.entries(listingContents.PricePerDay).map(z => {
-          
-          const dateText = z[0];
-          const priceText = z[1];          
-          return {
-            timestamp: new Date(Date.parse(`${dateText.slice(0,4)}-${dateText.slice(4,6)}-${dateText.slice(6,8)}`)).toISOString().split("T").shift(),
-            price: priceText
-          };
-        });
-        
+        const ctx = document.getElementById("myChart");
+        const dataPoints = Object.entries(listingContents.PricePerDay).map(
+          (z) => {
+            const dateText = z[0];
+            const priceText = z[1];
+            return {
+              timestamp: new Date(Date.parse(`${dateText.slice(0, 4)}-${dateText.slice(4, 6)}-${dateText.slice(6, 8)}`))
+                .toISOString()
+                .split("T")
+                .shift(),
+              price: priceText,
+            };
+          }
+        );
+
         if (priceChart != null) {
           priceChart.destroy();
           priceChart = null;
         }
-        
+
         priceChart = new Chart(ctx, {
-          type: 'line',
+          type: "line",
           data: {
-            labels: dataPoints.map(z => z.timestamp),
-            datasets: [{
-              label: 'Price',
-              data: dataPoints.map(z => z.price),
-              borderWidth: 1
-            }]
+            labels: dataPoints.map((z) => z.timestamp),
+            datasets: [
+              {
+                label: "Price",
+                data: dataPoints.map((z) => z.price),
+                borderWidth: 1,
+              },
+            ],
           },
           options: {
             scales: {
               y: {
-                beginAtZero: true
-              }
-            }
-          }
+                beginAtZero: true,
+              },
+            },
+          },
         });
       }
 
@@ -604,7 +583,7 @@
         }
         return null;
       }
-      
+
       function dateOnly(inputDate) {
         if (inputDate instanceof Date) {
           return inputDate != null
@@ -613,54 +592,58 @@
         }
         return null;
       }
-      
+
       async function createQuote(propertyId) {
         console.log(`Create test quote with details for: ${propertyId}`);
         const query = {
           propertyId: propertyId,
           start_date: dateOnly(addDays(new Date(Date.now()), 30)),
-          end_date: dateOnly(addDays(new Date(Date.now()), 32))
-        }
+          end_date: dateOnly(addDays(new Date(Date.now()), 32)),
+        };
 
         const params = `${new URLSearchParams(query).toString()}`;
         console.log(params);
-        
-        let response = await fetch(`${window.location.href}quote/create?${params}`, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            "adults": 2,
-            "children": 0,
-            "pets": 0
-          })
-        });
-        
+
+        let response = await fetch(
+          `${window.location.href}quote/create?${params}`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              adults: 2,
+              children: 0,
+              pets: 0,
+            }),
+          }
+        );
+
         if (!response.ok) {
           console.log(await response.text());
           return;
         }
         const contents = await response.json();
-        if (contents != null) {          
-          const quoteDetail = JSON.stringify(contents, null, 2);          
-          const quoteDisplay = `<textarea id="message" rows="50" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Quote Output">${quoteDetail}</textarea>`;          
+        if (contents != null) {
+          const quoteDetail = JSON.stringify(contents, null, 2);
+          const quoteDisplay = `<textarea id="message" rows="50" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Quote Output">${quoteDetail}</textarea>`;
           quoteDetails.innerHTML = quoteDisplay;
         }
       }
-      
-      
+
       async function loadPropertyById(propertyId) {
-        console.log(`Retrieve details for: ${propertyId}`);        
+        console.log(`Retrieve details for: ${propertyId}`);
         const queryParams = {
-          id: propertyId
-        };        
+          id: propertyId,
+        };
         if (Object.entries(queryParams).length > 0) {
           queryString = `?${new URLSearchParams(queryParams).toString()}`;
-        }        
-        
-        let response = await fetch(`${window.location.href}property/listing${queryString}`);
+        }
+
+        let response = await fetch(
+          `${window.location.href}property/listing${queryString}`
+        );
         if (!response.ok) {
           console.log(await response.text());
           return;
@@ -670,12 +653,17 @@
           placeMarker(contents);
           addDetails(contents);
           addPrices(contents);
-          setQuoteParameters(`Parameters: ${propertyId}, start ${dateOnly(addDays(new Date(Date.now()), 30))}, end ${dateOnly(addDays(new Date(Date.now()), 32))}`);
+          setQuoteParameters(
+            `Parameters: ${propertyId}, start ${dateOnly(
+              addDays(new Date(Date.now()), 30)
+            )}, end ${dateOnly(addDays(new Date(Date.now()), 32))}`
+          );
         }
       }
-      
+
       function setQuoteParameters(quoteTextParameters) {
-        document.getElementById("quoteParameters").innerHTML = quoteTextParameters;
+        document.getElementById("quoteParameters").innerHTML =
+          quoteTextParameters;
       }
 
       function getRandomColor() {
@@ -706,20 +694,29 @@
           map.resize();
         }, 50);
       }
-      
-      function attachEventHandlers() {        
-        document.getElementById("searchButton").addEventListener("click", async(evt) => {
-          await loadPropertyDetails(document.getElementById("searchPropertyInput").value);
-        });
-        document.getElementById("createQuoteButton").addEventListener("click", async(evt) => {
-          await createTestQuote(document.getElementById("searchPropertyInput").value);
-        });
+
+      function attachEventHandlers() {
+        document
+          .getElementById("searchButton")
+          .addEventListener("click", async (evt) => {
+            await loadPropertyDetails(
+              document.getElementById("searchPropertyInput").value
+            );
+          });
+        document
+          .getElementById("createQuoteButton")
+          .addEventListener("click", async (evt) => {
+            await createTestQuote(
+              document.getElementById("searchPropertyInput").value
+            );
+          });
       }
-      
-      function isLoading(toggle) {        
-        const searchButtonLoader = document.getElementById("searchButtonLoader");
+
+      function isLoading(toggle) {
+        const searchButtonLoader =
+          document.getElementById("searchButtonLoader");
         const searchInput = document.getElementById("searchPropertyInput");
-        
+
         if (toggle) {
           searchButtonLoader.classList.remove("hidden");
           searchInput.readOnly = true;
@@ -728,32 +725,32 @@
         searchButtonLoader.classList.add("hidden");
         searchInput.readOnly = false;
       }
-      
+
       function isQuoting(toggle) {
-        const quoteButtonLoader = document.getElementById("quoteButtonLoader");        
+        const quoteButtonLoader = document.getElementById("quoteButtonLoader");
         if (toggle) {
           quoteButtonLoader.classList.remove("hidden");
           return;
         }
         quoteButtonLoader.classList.add("hidden");
       }
-      
+
       async function createTestQuote(propertyId) {
-        const parsedId = Number.parseInt(propertyId);        
+        const parsedId = Number.parseInt(propertyId);
         if (Number.isNaN(parsedId)) {
           return;
         }
         try {
           isQuoting(true);
-          await createQuote(propertyId);          
+          await createQuote(propertyId);
         } catch (exc) {
           console.log(exc);
-        }      
-        isQuoting(false);        
+        }
+        isQuoting(false);
       }
-      
+
       async function loadPropertyDetails(propertyId) {
-        const parsedId = Number.parseInt(propertyId);        
+        const parsedId = Number.parseInt(propertyId);
         if (Number.isNaN(parsedId)) {
           return;
         }
@@ -762,15 +759,14 @@
           await loadPropertyById(propertyId);
         } catch (exc) {
           console.log(exc);
-        }      
+        }
         isLoading(false);
-      }      
+      }
 
       window.addEventListener("load", async (event) => {
         attachEventHandlers();
-        await loadMap();        
+        await loadMap();
       });
-      
     </script>
   </body>
 </html>
