@@ -194,6 +194,9 @@
                 <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="Details-tab" data-tabs-target="#details" type="button" role="tab" aria-controls="Details" aria-selected="false">Details</button>
             </li>
             <li class="me-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="Reviews-tab" data-tabs-target="#reviews" type="button" role="tab" aria-controls="Reviews" aria-selected="false">Reviews</button>
+            </li>          
+            <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="Prices-tab" data-tabs-target="#prices" type="button" role="tab" aria-controls="Prices" aria-selected="false">Prices</button>
             </li>
             <li role="presentation">
@@ -322,6 +325,28 @@
                 </div>
             </div>
         </div>
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="reviews" role="tabpanel" aria-labelledby="Reviews-tab">
+          <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div class="flex flex-col items-center pb-10">
+                <svg class="w-[48px] h-[48px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-width="1" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                </svg>                
+                <div id="review-stars" class="flex items-center">
+                </div>		
+                <h5 id="reviewer-name" class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Reviewer Name</h5>
+                <span id="review-title" class="text-xl font-bold text-gray-500 dark:text-gray-400">Review Title</span>
+                <span id="review-source" class="text-sm text-gray-500 dark:text-gray-400">Review Source</span>
+                <p id="review-summary" class="mb-3 font-normal text-gray-700 dark:text-gray-400">Summary</p>
+                <div class="flex mt-4 md:mt-6">
+                    <a id="previous-review" class="py-2 px-5 border-none text-lg font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">&lt;</a>
+                    <a id="next-review" class="py-2 px-5 border-none text-lg font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">&gt;</a>                  
+                </div>
+                <div class="flex mt-4 md:mt-6">
+                    <a id="surprise-review" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Surprise Me</a>
+                </div>
+              </div>
+          </div>          
+        </div>      
         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="prices" role="tabpanel" aria-labelledby="Prices-tab">
             <canvas id="myChart"></canvas>
         </div>
@@ -365,6 +390,8 @@
       let searchMarker = null;
       let map = null;
       let priceChart = null;
+      let reviews = null;
+      let currentReviewIndex = null;
 
       function getHeaderImage(listingContents) {
         return listingContents?.ImageUrl || listingContents.images.pop().URL;
@@ -529,6 +556,65 @@
         }
         amenities.innerHTML = `${amenityGroups.join("")}`;
       }
+      
+      function createStars(rating) {        
+        const starTypes = {
+          filled: `<svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20"><path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/></svg>`,
+          empty: `<svg class="w-4 h-4 text-gray-300 dark:text-gray-500 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20"><path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/></svg>`
+        }        
+        const stars = `${starTypes.filled.repeat(rating)}${starTypes.empty.repeat(5 - rating)}`;
+        return stars;
+      }
+      
+      function reviewElementContents(elementId, newContents) {
+        const elementDiv = document.getElementById(elementId);
+        if (elementDiv != null) {
+          elementDiv.innerHTML = newContents;  
+        }        
+      }
+      
+      function loadReview(reviewIndex) {
+        if (reviews == null || reviews.length == 0) {
+          return;
+        }
+        
+        if (reviewIndex == null) {
+          reviewIndex = Math.floor(Math.random() * reviews.length);
+        }
+        
+        if (reviewIndex > reviews.length || reviewIndex < 0) {
+          return;
+        }
+        currentReviewIndex = reviewIndex;        
+        const selectedReview = reviews[reviewIndex];        
+        reviewElementContents("review-stars", createStars(Number(selectedReview.rating)));
+        reviewElementContents("reviewer-name", selectedReview.reviewedBy || "");
+        reviewElementContents("review-title", selectedReview.reviewSummary);
+        reviewElementContents("review-source", selectedReview.reviewSource);
+        reviewElementContents("review-summary", selectedReview.reviewDetail);
+      }
+      
+      async function addReviews(propertyId) {
+        console.log(`Retrieve reviews for: ${propertyId}`);
+        const queryParams = {
+          id: propertyId,
+        };
+        if (Object.entries(queryParams).length > 0) {
+          queryString = `?${new URLSearchParams(queryParams).toString()}`;
+        }
+
+        let response = await fetch(
+          `${window.location.href}property/reviews${queryString}`
+        );
+        if (!response.ok) {
+          console.log(await response.text());
+          return;
+        }
+        const contents = await response.json();
+        contents.sort((a, b) => a.createdAt - b.createdAt)
+        reviews = contents;
+        loadReview(0);
+      }
 
       function addPrices(listingContents) {
         const ctx = document.getElementById("myChart");
@@ -653,6 +739,7 @@
           placeMarker(contents);
           addDetails(contents);
           addPrices(contents);
+          await addReviews(propertyId);
           setQuoteParameters(
             `Parameters: ${propertyId}, start ${dateOnly(
               addDays(new Date(Date.now()), 30)
@@ -710,6 +797,21 @@
               document.getElementById("searchPropertyInput").value
             );
           });
+        document
+          .getElementById("previous-review")
+          .addEventListener("click", async (evt) => {
+            loadReview((currentReviewIndex || 0) - 1);
+          });
+        document
+          .getElementById("next-review")
+          .addEventListener("click", async (evt) => {
+            loadReview((currentReviewIndex || 0) + 1);
+          });
+        document
+          .getElementById("surprise-review")
+          .addEventListener("click", async (evt) => {
+            loadReview(null);
+          });        
       }
 
       function isLoading(toggle) {
