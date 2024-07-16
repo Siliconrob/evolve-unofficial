@@ -174,6 +174,7 @@
         >
           Any of these will work<br />
           <ul>
+            <li>427825</li>
             <li>440000</li>
             <li>460000</li>
             <li>470000</li>
@@ -328,15 +329,19 @@
         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="reviews" role="tabpanel" aria-labelledby="Reviews-tab">
           <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <div class="flex flex-col items-center pb-10">
-                <svg class="w-[48px] h-[48px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-width="1" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                </svg>                
+                <div id="review-img">
+                  <img class="mb-2 mt-2 border-b rounded-full w-30 h-30 shadow" src="" id="person-img" alt="" />                  
+<!--                   <svg class="w-[48px] h-[48px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="1" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                  </svg> -->
+                </div>
                 <div id="review-stars" class="flex items-center">
                 </div>		
                 <h5 id="reviewer-name" class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Reviewer Name</h5>
                 <span id="review-title" class="text-xl font-bold text-gray-500 dark:text-gray-400">Review Title</span>
+                <span id="review-date" class="text-xl font-bold text-gray-500 dark:text-gray-400">Review Date</span>
                 <span id="review-source" class="text-sm text-gray-500 dark:text-gray-400">Review Source</span>
-                <p id="review-summary" class="mb-3 font-normal text-gray-700 dark:text-gray-400">Summary</p>
+                <p id="review-summary" class="mb-3 ms-6 font-normal text-gray-700 dark:text-gray-400">Summary</p>
                 <div class="flex mt-4 md:mt-6">
                     <a id="previous-review" class="py-2 px-5 border-none text-lg font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">&lt;</a>
                     <a id="next-review" class="py-2 px-5 border-none text-lg font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">&gt;</a>                  
@@ -573,7 +578,21 @@
         }        
       }
       
-      function loadReview(reviewIndex) {
+      async function setReviewerImage() {
+        const randomUserResponse = await fetch(`https://randomuser.me/api`, {
+            headers: {
+                "accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        });
+        const randomUser = await randomUserResponse.json();
+        const imageDiv = document.getElementById("person-img");
+        if (imageDiv != null) {
+          imageDiv.src = randomUser.results.shift().picture.large;
+        }
+      }
+      
+      async function loadReview(reviewIndex) {
         if (reviews == null || reviews.length == 0) {
           return;
         }
@@ -590,8 +609,10 @@
         reviewElementContents("review-stars", createStars(Number(selectedReview.rating)));
         reviewElementContents("reviewer-name", selectedReview.reviewedBy || "");
         reviewElementContents("review-title", selectedReview.reviewSummary);
+        reviewElementContents("review-date", selectedReview.createdAt);
         reviewElementContents("review-source", selectedReview.reviewSource);
         reviewElementContents("review-summary", selectedReview.reviewDetail);
+        await setReviewerImage();
       }
       
       async function addReviews(propertyId) {
@@ -800,17 +821,17 @@
         document
           .getElementById("previous-review")
           .addEventListener("click", async (evt) => {
-            loadReview((currentReviewIndex || 0) - 1);
+            await loadReview((currentReviewIndex || 0) - 1);
           });
         document
           .getElementById("next-review")
           .addEventListener("click", async (evt) => {
-            loadReview((currentReviewIndex || 0) + 1);
+            await loadReview((currentReviewIndex || 0) + 1);
           });
         document
           .getElementById("surprise-review")
           .addEventListener("click", async (evt) => {
-            loadReview(null);
+            await loadReview(null);
           });        
       }
 
