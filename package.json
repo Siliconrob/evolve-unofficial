@@ -28,7 +28,7 @@
     "@hapi/nigel": "^5.0.1",
     "@hapi/vise": "^5.0.1",
     "jsdom": "^24.1.1",
-    "cache-manager": "^5.7.3"
+    "cache-manager": "^5.7.4"
   },
   "license": "MIT",
   "keywords": [
